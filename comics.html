@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <!-- zapochvame s DOCTYPE za html, sled tova html, posle head sus title i meta, posle body i v body pishem osnovnite neshta -->
+    <head>
+        <title>Comics</title>
+        <meta name="description" content="This is my first head bump with JQUERY">
+    </head>
+
+    <body>
+        <!-- правим нова папка в програмата и слагаме снимките в новата папка на компа -->
+        <img src="img/first.jpg" id="image">
+        <!-- inicializirame butoni -->
+        <button id="previous"> Previous </button>
+        <button id="next"> Next  </button>
+        <button id="random"> Random  </button>
+        <!-- path za zarejdane na JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script>
+
+            
+
+            $(document).ready(function(){
+                // suzdavame masiva
+                var images = ["img/first.jpg", "img/second.jpg", "img/third.jpg"];
+                var index = 0;
+                // suzdavame taimera
+                var timer = setInterval(changePicture, 5000);
+                // zadavame function za smqna na snimkata
+                function changePicture(){
+                    // sus trigger zadavame da se polzva funkcionalnostta na buton NEXT
+                    $("#next").trigger("click");
+
+                }
+                // sluchaina snimka
+                $("#random").click(function(){
+                    // sluchaina snimka random*3 zashtoto sa 3 elementa v masiva 0,1,2
+                    randomNumber = Math.floor(Math.random() * 3);
+                    // promenqme atributite na image kato zadava sluchaini
+                    $("#image").attr('src', images[randomNumber]);
+
+                });
+                // preminava prez masiva, ako ne e 0 namalq s 1 i pokazva predishnata snimka i butona nekst
+                $("#previous").click(function(){
+                    if(index == 0)
+                        return;
+
+                    index--;
+                    // promenq atributa na image sus sledvashtiq
+                    $("#image").attr('src', images[index]);
+                    // pokazva butona
+                    $("#next").show();
+                    // kogato stigne do purvata snimka previeus se skriva
+                    if(index == 0){
+                        $("#previous").hide();
+                        // spira taimera
+                        clearInterval(timer);
+                    }    
+
+                });
+                // preminava prez masiva, ako ne e v kraq se uvelichava s 1, pokazva sledvashtata snimka i butona previous
+                $("#next").click(function(){
+                    if(index == images.length - 1){ 
+                        return;
+                    }
+
+                    index++;
+                    // promenq atributa na image sus sledvashtiq
+                    $("#image").attr('src', images[index]);
+                    // pokazva butona
+                    $("#previous").show();    
+                    // kogato stigne do poslednata snimka next se skriva
+                    if(index == images.length - 1){
+                        $("#next").hide();
+                    }
+
+                });
+                // skriva butona pri purvata snimka
+                $("#previous").hide();
+
+
+            });
+            
+
+            
+
+
+        </script>
+    </body>
+</html>
